@@ -64,4 +64,8 @@ public class FilmeService {
 		entity.setanoFilme(obj.getanoFilme());
 		entity.setdscFilme(obj.getdscFilme());
 	}
+	
+	public List<Filme> findByTitle(String title){
+		return repository.getFilmByTitle(title);
+	}
 }

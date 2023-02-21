@@ -59,4 +59,11 @@ public class FilmeResources {
 		obj = service.update(obj);
 		return ResponseEntity.ok().body(obj);
 	}
+
+	@GetMapping(value = "/titlesearch")
+	public ResponseEntity<List<Filme>> findByTitle(@RequestParam(value = "title", defaultValue = "") String text) {
+		text = URL.decodeParam(text);
+		List<Filme> list = service.findByTitle(text);
+		return ResponseEntity.ok().body(list);
+	}
 }
