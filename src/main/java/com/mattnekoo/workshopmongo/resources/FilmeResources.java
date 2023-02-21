@@ -19,7 +19,7 @@ import com.mattnekoo.workshopmongo.entities.Filme;
 import com.mattnekoo.workshopmongo.services.FilmeService;
 
 @RestController
-@RequestMapping(value = "/filme")
+@RequestMapping(value = "/filmes")
 public class FilmeResources {
 
 	@Autowired
@@ -53,6 +53,7 @@ public class FilmeResources {
 
 	@PutMapping(value = "/{id}")
 	public ResponseEntity<Filme> update(@PathVariable String id, @RequestBody Filme obj) {
+		obj.setId(id);
 		obj = service.update(obj);
 		return ResponseEntity.ok().body(obj);
 	}

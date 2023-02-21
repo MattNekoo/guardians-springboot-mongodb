@@ -4,7 +4,9 @@ import java.io.Serializable;
 import java.util.Objects;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
+@Document
 public class Filme implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
@@ -59,7 +61,7 @@ public class Filme implements Serializable {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(anoFilme, dscFilme, id, nomeFilme);
+		return Objects.hash(id);
 	}
 
 	@Override
@@ -71,7 +73,6 @@ public class Filme implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Filme other = (Filme) obj;
-		return Objects.equals(anoFilme, other.anoFilme) && Objects.equals(dscFilme, other.dscFilme)
-				&& Objects.equals(id, other.id) && Objects.equals(nomeFilme, other.nomeFilme);
+		return Objects.equals(id, other.id);
 	}
 }
