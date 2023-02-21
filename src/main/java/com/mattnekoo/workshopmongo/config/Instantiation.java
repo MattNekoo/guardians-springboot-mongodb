@@ -1,5 +1,6 @@
 package com.mattnekoo.workshopmongo.config;
 
+import java.lang.reflect.Array;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,17 +35,25 @@ public class Instantiation implements CommandLineRunner {
 		listFilmRepository.deleteAll();
 		
 		User maria = new User(null, "Maria Brown", "maria@gmail.com");
-		User u2 = new User(null, "Alex Green", "alex@gmail.com");
-		User u3 = new User(null, "Lexie Grey", "lexie@gmail.com");
+		User alex = new User(null, "Alex Green", "alex@gmail.com");
+		User lexie = new User(null, "Lexie Grey", "lexie@gmail.com");
 		
 		Filme f1 = new Filme(null, "Batman", "Filme do Morcego", 1999);
+		Filme f2 = new Filme(null, "Dunkirk", "Filme de Guerra", 2017);
+		Filme f3 = new Filme(null, "Interestellar", "Filme do Tempo", 2015);
 
-		userRepository.saveAll(Arrays.asList(maria, u2, u3));
-		filmeRepository.save(f1);
+		userRepository.saveAll(Arrays.asList(maria, alex, lexie));
+		filmeRepository.saveAll(Arrays.asList(f1,f2,f3));
 		
 		ListFilm l1 = new ListFilm(null, "Meus Filmes", new UserListDTO(maria));
+		ListFilm l2 = new ListFilm(null, "Filmes Marvel", new UserListDTO(maria));
 				
+		listFilmRepository.saveAll(Arrays.asList(l1,l2));
+		
+		maria.getLista().addAll(Arrays.asList(l1,l2));
+		l1.getFilmes().addAll(Arrays.asList(f1,f3));
+		
+		userRepository.save(maria);
 		listFilmRepository.save(l1);
-
 	}
 }
