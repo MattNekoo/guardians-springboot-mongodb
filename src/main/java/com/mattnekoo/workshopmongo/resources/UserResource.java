@@ -18,7 +18,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.mattnekoo.workshopmongo.domain.User;
 import com.mattnekoo.workshopmongo.dto.UserDTO;
-import com.mattnekoo.workshopmongo.entities.Filme;
+import com.mattnekoo.workshopmongo.entities.ListFilm;
 import com.mattnekoo.workshopmongo.services.UserService;
 
 @RestController
@@ -60,5 +60,11 @@ public class UserResource {
 		obj.setId(id);
 		obj = service.update(obj);
 		return ResponseEntity.ok().body(obj);
+	}
+	
+	@GetMapping(value = "/{id}/listas")
+	public ResponseEntity<List<ListFilm>> findLists(@PathVariable String id) {
+		User obj = service.findById(id);
+		return ResponseEntity.ok().body(obj.getLista());
 	}
 }
