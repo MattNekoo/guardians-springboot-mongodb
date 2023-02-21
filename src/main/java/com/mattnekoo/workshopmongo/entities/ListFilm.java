@@ -16,13 +16,13 @@ public class ListFilm implements Serializable {
 	private String id;
 	private String dscList;
 	private UserListDTO usuario;
-	
+
 	@DBRef(lazy = true)
 	private List<Filme> filmes = new ArrayList<>();
-	
+
 	public ListFilm() {
 	}
-	
+
 	public ListFilm(String id, String dscList, UserListDTO usuario) {
 		super();
 		this.id = id;
@@ -38,14 +38,6 @@ public class ListFilm implements Serializable {
 		this.id = id;
 	}
 
-	public String getDscList() {
-		return dscList;
-	}
-
-	public void setDscList(String dscList) {
-		this.dscList = dscList;
-	}
-
 	public UserListDTO getUsuario() {
 		return usuario;
 	}
@@ -53,12 +45,20 @@ public class ListFilm implements Serializable {
 	public void setUsuario(UserListDTO usuario) {
 		this.usuario = usuario;
 	}
-	
+
 	public List<Filme> getFilmes() {
 		return filmes;
 	}
 
 	public void setFilmes(List<Filme> filmes) {
 		this.filmes = filmes;
+	}
+
+	public String getDscList() {
+		return dscList;
+	}
+
+	public void setDscList(String dscList) {
+		this.dscList = dscList;
 	}
 }

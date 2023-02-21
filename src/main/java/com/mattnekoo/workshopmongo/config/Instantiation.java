@@ -45,7 +45,7 @@ public class Instantiation implements CommandLineRunner {
 		filmeRepository.saveAll(Arrays.asList(f1,f2,f3));
 		
 		ListFilm l1 = new ListFilm(null, "Meus Filmes", new UserListDTO(maria));
-		ListFilm l2 = new ListFilm(null, "Filmes Marvel", new UserListDTO(maria));
+		ListFilm l2 = new ListFilm(null, "Filmes Marvel", new UserListDTO(alex));
 				
 		listFilmRepository.saveAll(Arrays.asList(l1,l2));
 		
