@@ -8,8 +8,10 @@ import org.springframework.context.annotation.Configuration;
 
 import com.mattnekoo.workshopmongo.domain.User;
 import com.mattnekoo.workshopmongo.dto.UserListDTO;
+import com.mattnekoo.workshopmongo.entities.Anime;
 import com.mattnekoo.workshopmongo.entities.Filme;
 import com.mattnekoo.workshopmongo.entities.ListFilm;
+import com.mattnekoo.workshopmongo.repositories.AnimeRepository;
 import com.mattnekoo.workshopmongo.repositories.FilmeRepository;
 import com.mattnekoo.workshopmongo.repositories.ListFilmRepository;
 import com.mattnekoo.workshopmongo.repositories.UserRepository;
@@ -22,6 +24,9 @@ public class Instantiation implements CommandLineRunner {
 	
 	@Autowired
 	private FilmeRepository filmeRepository;
+	
+	@Autowired
+	private AnimeRepository animeRepository;
 
 	@Autowired
 	private ListFilmRepository listFilmRepository;
@@ -32,6 +37,7 @@ public class Instantiation implements CommandLineRunner {
 		userRepository.deleteAll();
 		filmeRepository.deleteAll();
 		listFilmRepository.deleteAll();
+		animeRepository.deleteAll();
 		
 		User maria = new User(null, "Maria Brown", "maria@gmail.com");
 		User alex = new User(null, "Alex Green", "alex@gmail.com");
@@ -40,9 +46,12 @@ public class Instantiation implements CommandLineRunner {
 		Filme f1 = new Filme(null, "Batman", "Filme do Morcego", 1999);
 		Filme f2 = new Filme(null, "Dunkirk", "Filme de Guerra", 2017);
 		Filme f3 = new Filme(null, "Interestellar", "Filme do Tempo", 2015);
+		
+		Anime a1 = new Anime(null, "Gin no Saji", "TV", 2014, 11, 8.1, 9);
 
 		userRepository.saveAll(Arrays.asList(maria, alex, lexie));
 		filmeRepository.saveAll(Arrays.asList(f1,f2,f3));
+		animeRepository.saveAll(Arrays.asList(a1));
 		
 		ListFilm l1 = new ListFilm(null, "Meus Filmes", new UserListDTO(maria));
 		ListFilm l2 = new ListFilm(null, "Filmes Marvel", new UserListDTO(alex));
