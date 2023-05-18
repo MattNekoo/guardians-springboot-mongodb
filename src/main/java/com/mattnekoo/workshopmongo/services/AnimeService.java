@@ -38,21 +38,21 @@ public class AnimeService {
 	/* DELETE ANIME */
 	public void delete(String id) {
 		try {
-			repository.deleteById(id);			
+			repository.deleteById(id);
 		} catch (EmptyResultDataAccessException e) {
 			throw new ResourceNotFoundException(id);
 		} catch (DataIntegrityViolationException e) {
 			throw new DatabaseException(e.getMessage());
 		}
 	}
-	
+
 	/* UPDATE ANIME */
 	public Anime update(Anime obj) {
 		try {
 			Optional<Anime> newObj = repository.findById(obj.getId());
 			Anime anime = newObj.get();
 			updateData(anime, obj);
-			return repository.save(anime);			
+			return repository.save(anime);
 		} catch (NoSuchElementException e) {
 			throw new ObjectNotFoundException("Objeto não encontrado");
 		}
@@ -66,9 +66,10 @@ public class AnimeService {
 		entity.setEpiAnime(obj.getEpiAnime());
 		entity.setNotaAnime(obj.getNotaAnime());
 		entity.setScoreAnime(obj.getScoreAnime());
+		entity.setSequencia(obj.getSequencia());
 	}
-	
-	public List<Anime> findByTitle(String title){
+
+	public List<Anime> findByTitle(String title) {
 		return repository.getAnimeByTitle(title);
 	}
 }

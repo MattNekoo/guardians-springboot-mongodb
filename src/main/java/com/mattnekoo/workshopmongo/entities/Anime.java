@@ -18,20 +18,25 @@ public class Anime implements Serializable {
 	private Integer epiAnime;
 	private Double scoreAnime;
 	private Integer notaAnime;
+    private Integer sequencia;
+
+	public String colecao;
 
 	public Anime() {
 	}
 
 	public Anime(String id, String nomeAnime, String tipoAnime, Integer anoAnime, Integer epiAnime, double scoreAnime,
-			Integer notaAnime) {
-		this.id = id;
-		this.nomeAnime = nomeAnime;
-		this.tipoAnime = tipoAnime;
-		this.anoAnime = anoAnime;
-		this.epiAnime = epiAnime;
-		this.scoreAnime = scoreAnime;
-		this.notaAnime = notaAnime;
-	}
+            Integer notaAnime, Integer sequencia) {
+        this.id = id;
+        this.nomeAnime = nomeAnime;
+        this.tipoAnime = tipoAnime;
+        this.anoAnime = anoAnime;
+        this.epiAnime = epiAnime;
+        this.scoreAnime = scoreAnime;
+        this.notaAnime = notaAnime;
+        this.sequencia = sequencia;
+    }
+
 
 	public String getId() {
 		return id;
@@ -88,6 +93,14 @@ public class Anime implements Serializable {
 	public void setNotaAnime(Integer notaAnime) {
 		this.notaAnime = notaAnime;
 	}
+
+    public Integer getSequencia() {
+        return sequencia;
+    }
+
+    public void setSequencia(Integer sequencia) {
+        this.sequencia = sequencia;
+    }
 
 	@Override
 	public int hashCode() {

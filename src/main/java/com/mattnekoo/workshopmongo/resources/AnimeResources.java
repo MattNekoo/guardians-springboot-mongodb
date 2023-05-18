@@ -1,6 +1,7 @@
 package com.mattnekoo.workshopmongo.resources;
 
 import java.net.URI;
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +18,10 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.mattnekoo.workshopmongo.entities.Anime;
+import com.mattnekoo.workshopmongo.entities.ListAnime;
 import com.mattnekoo.workshopmongo.resources.util.URL;
 import com.mattnekoo.workshopmongo.services.AnimeService;
+import com.mattnekoo.workshopmongo.services.ListAnimeService;
 
 @RestController
 @RequestMapping(value = "/animes")
@@ -26,6 +29,9 @@ public class AnimeResources {
 
 	@Autowired
 	private AnimeService service;
+	
+	@Autowired
+	private ListAnimeService listService;
 
 	@GetMapping
 	public ResponseEntity<List<Anime>> findAll() {
@@ -41,8 +47,25 @@ public class AnimeResources {
 	}
 
 	@PostMapping
-	public ResponseEntity<Anime> insert(@RequestBody Anime obj) {
-		obj = service.insert(obj);
+	public ResponseEntity<Object> insert(@RequestBody Anime obj) {
+		Anime dadoAnime = new Anime();
+		dadoAnime.setnomeAnime(obj.getnomeAnime());
+		dadoAnime.setanoAnime(obj.getanoAnime());
+		dadoAnime.settipoAnime(obj.gettipoAnime());
+		dadoAnime.setEpiAnime(obj.getEpiAnime());
+		dadoAnime.setScoreAnime(obj.getScoreAnime());
+	    dadoAnime.setNotaAnime(obj.getNotaAnime());
+	    dadoAnime.setSequencia(obj.getSequencia());
+	    dadoAnime = service.insert(dadoAnime);
+	    
+	    String colecao = obj.colecao;
+	    if(colecao != null) {
+	    	ListAnime lobj = new ListAnime();
+	    	lobj.setColecao(colecao);
+	    	lobj.getAnimes().addAll(Arrays.asList(dadoAnime));
+	    	lobj = listService.insert(lobj);	    	
+	    }
+		
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).body(obj);
 	}

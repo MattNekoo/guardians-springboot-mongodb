@@ -10,9 +10,11 @@ import com.mattnekoo.workshopmongo.domain.User;
 import com.mattnekoo.workshopmongo.dto.UserListDTO;
 import com.mattnekoo.workshopmongo.entities.Anime;
 import com.mattnekoo.workshopmongo.entities.Filme;
+import com.mattnekoo.workshopmongo.entities.ListAnime;
 import com.mattnekoo.workshopmongo.entities.ListFilm;
 import com.mattnekoo.workshopmongo.repositories.AnimeRepository;
 import com.mattnekoo.workshopmongo.repositories.FilmeRepository;
+import com.mattnekoo.workshopmongo.repositories.ListAnimeRepository;
 import com.mattnekoo.workshopmongo.repositories.ListFilmRepository;
 import com.mattnekoo.workshopmongo.repositories.UserRepository;
 
@@ -31,6 +33,9 @@ public class Instantiation implements CommandLineRunner {
 	@Autowired
 	private ListFilmRepository listFilmRepository;
 	
+	@Autowired
+	private ListAnimeRepository listAnimeRepository;
+	
 	@Override
 	public void run(String... args) throws Exception {
 
@@ -38,6 +43,7 @@ public class Instantiation implements CommandLineRunner {
 		filmeRepository.deleteAll();
 		listFilmRepository.deleteAll();
 		animeRepository.deleteAll();
+		listAnimeRepository.deleteAll();
 		
 		User maria = new User(null, "Maria Brown", "maria@gmail.com");
 		User alex = new User(null, "Alex Green", "alex@gmail.com");
@@ -47,21 +53,31 @@ public class Instantiation implements CommandLineRunner {
 		Filme f2 = new Filme(null, "Dunkirk", "Filme de Guerra", 2017);
 		Filme f3 = new Filme(null, "Interestellar", "Filme do Tempo", 2015);
 		
-		Anime a1 = new Anime(null, "Gin no Saji", "TV", 2014, 11, 8.1, 9);
+		Anime a1 = new Anime(null, "Gin no Saji", "TV", 2014, 11, 8.1, 9, 1);
+		Anime a2 = new Anime(null, "Ajin 1", "TV", 2014, 11, 8.1, 9, 1);
+		Anime a3 = new Anime(null, "Ajin 2", "TV", 2014, 11, 8.1, 9, 2);
+
 
 		userRepository.saveAll(Arrays.asList(maria, alex, lexie));
 		filmeRepository.saveAll(Arrays.asList(f1,f2,f3));
-		animeRepository.saveAll(Arrays.asList(a1));
+		animeRepository.saveAll(Arrays.asList(a1,a2,a3));
 		
 		ListFilm l1 = new ListFilm(null, "Meus Filmes", new UserListDTO(maria));
 		ListFilm l2 = new ListFilm(null, "Filmes Marvel", new UserListDTO(alex));
+		
+		ListAnime al1 = new ListAnime(null, "Gin no Saji");
+		ListAnime al2 = new ListAnime(null, "Ajin");
 				
 		listFilmRepository.saveAll(Arrays.asList(l1,l2));
 		
 		maria.getLista().addAll(Arrays.asList(l1,l2));
 		l1.getFilmes().addAll(Arrays.asList(f1,f3));
 		
+		al1.getAnimes().addAll(Arrays.asList(a1));
+		al2.getAnimes().addAll(Arrays.asList(a2,a3));
+		
 		userRepository.save(maria);
 		listFilmRepository.save(l1);
+		listAnimeRepository.saveAll(Arrays.asList(al1,al2));
 	}
 }

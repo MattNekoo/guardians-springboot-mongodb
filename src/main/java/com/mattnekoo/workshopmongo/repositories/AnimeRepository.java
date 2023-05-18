@@ -10,5 +10,8 @@ import com.mattnekoo.workshopmongo.entities.Anime;
 public interface AnimeRepository extends MongoRepository<Anime, String> {
 
 	@Query("{nomeAnime : ?0}")    // SQL Equivalent : SELECT * FROM FILME where nomeFilme = ?
-    List<Anime> getAnimeByTitle(String nomeAnime);
+    List<Anime> getAnimeByTitleExato(String nomeAnime);
+	
+	@Query("{ nomeAnime: { $regex: ?0, $options: 'i' } }")
+	List<Anime> getAnimeByTitle(String nomeAnime);
 }
