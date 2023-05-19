@@ -2,21 +2,14 @@ package com.mattnekoo.workshopmongo.config;
 
 import java.util.Arrays;
 
+import com.mattnekoo.workshopmongo.entities.*;
+import com.mattnekoo.workshopmongo.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 
 import com.mattnekoo.workshopmongo.domain.User;
 import com.mattnekoo.workshopmongo.dto.UserListDTO;
-import com.mattnekoo.workshopmongo.entities.Anime;
-import com.mattnekoo.workshopmongo.entities.Filme;
-import com.mattnekoo.workshopmongo.entities.ListAnime;
-import com.mattnekoo.workshopmongo.entities.ListFilm;
-import com.mattnekoo.workshopmongo.repositories.AnimeRepository;
-import com.mattnekoo.workshopmongo.repositories.FilmeRepository;
-import com.mattnekoo.workshopmongo.repositories.ListAnimeRepository;
-import com.mattnekoo.workshopmongo.repositories.ListFilmRepository;
-import com.mattnekoo.workshopmongo.repositories.UserRepository;
 
 @Configuration
 public class Instantiation implements CommandLineRunner {
@@ -35,6 +28,9 @@ public class Instantiation implements CommandLineRunner {
 	
 	@Autowired
 	private ListAnimeRepository listAnimeRepository;
+
+	@Autowired
+	private PendenciaAnimeRepository pendenciaAnimeRepository;
 	
 	@Override
 	public void run(String... args) throws Exception {
@@ -44,6 +40,7 @@ public class Instantiation implements CommandLineRunner {
 		listFilmRepository.deleteAll();
 		animeRepository.deleteAll();
 		listAnimeRepository.deleteAll();
+		pendenciaAnimeRepository.deleteAll();
 		
 		User maria = new User(null, "Maria Brown", "maria@gmail.com");
 		User alex = new User(null, "Alex Green", "alex@gmail.com");
@@ -56,7 +53,6 @@ public class Instantiation implements CommandLineRunner {
 		Anime a1 = new Anime(null, "Gin no Saji", "TV", 2014, 11, 8.1, 9, 1);
 		Anime a2 = new Anime(null, "Ajin 1", "TV", 2014, 11, 8.1, 9, 1);
 		Anime a3 = new Anime(null, "Ajin 2", "TV", 2014, 11, 8.1, 9, 2);
-
 
 		userRepository.saveAll(Arrays.asList(maria, alex, lexie));
 		filmeRepository.saveAll(Arrays.asList(f1,f2,f3));
@@ -79,5 +75,13 @@ public class Instantiation implements CommandLineRunner {
 		userRepository.save(maria);
 		listFilmRepository.save(l1);
 		listAnimeRepository.saveAll(Arrays.asList(al1,al2));
+
+		PendenciaAnime p1 = new PendenciaAnime(null, "Another OVA",2013);
+
+		pendenciaAnimeRepository.save(p1);
+
+		a1.getPendencias().addAll(Arrays.asList(p1));
+
+		animeRepository.save(a1);
 	}
 }

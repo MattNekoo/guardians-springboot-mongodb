@@ -1,9 +1,12 @@
 package com.mattnekoo.workshopmongo.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document
@@ -21,6 +24,9 @@ public class Anime implements Serializable {
     private Integer sequencia;
 
 	public String colecao;
+
+	@DBRef(lazy = true)
+	private List<PendenciaAnime> pendencias = new ArrayList<>();
 
 	public Anime() {
 	}
@@ -102,6 +108,13 @@ public class Anime implements Serializable {
         this.sequencia = sequencia;
     }
 
+	public List<PendenciaAnime> getPendencias() {
+		return pendencias;
+	}
+
+	public void setPendencias(List<PendenciaAnime> pendencias) {
+		this.pendencias = pendencias;
+	}
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
