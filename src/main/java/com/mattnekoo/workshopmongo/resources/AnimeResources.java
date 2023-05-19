@@ -78,9 +78,31 @@ public class AnimeResources {
 
 	@PutMapping(value = "/{id}")
 	public ResponseEntity<Anime> update(@PathVariable String id, @RequestBody Anime obj) {
-		obj.setId(id);
-		obj = service.update(obj);
+		String colecao = obj.colecao;
+		if(colecao != null) {
+			Anime dadoAnime = new Anime();
+			dadoAnime.setnomeAnime(obj.getnomeAnime());
+			dadoAnime.setanoAnime(obj.getanoAnime());
+			dadoAnime.settipoAnime(obj.gettipoAnime());
+			dadoAnime.setEpiAnime(obj.getEpiAnime());
+			dadoAnime.setScoreAnime(obj.getScoreAnime());
+			dadoAnime.setNotaAnime(obj.getNotaAnime());
+			dadoAnime.setSequencia(obj.getSequencia());
+			dadoAnime = service.insert(dadoAnime);
+			
+			ListAnime lobj = new ListAnime();
+			
+			lobj.getAnimes().addAll(Arrays.asList(dadoAnime));
+			lobj.setColecao(colecao);
+			lobj = listService.update(lobj);
+			
+			service.delete(id);
+		} else {
+			obj.setId(id);
+			obj = service.update(obj);
+		}
 		return ResponseEntity.ok().body(obj);
+	    
 	}
 
 	@GetMapping(value = "/titlesearch")
