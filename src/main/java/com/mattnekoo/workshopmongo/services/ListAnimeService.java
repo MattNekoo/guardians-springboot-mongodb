@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.mattnekoo.workshopmongo.entities.ListAnime;
@@ -22,7 +23,8 @@ public class ListAnimeService {
 	private ListAnimeRepository repository;
 
 	public List<ListAnime> findAll() {
-		return repository.findAll();
+		Sort sort = Sort.by(Sort.Direction.ASC, "colecao");
+		return repository.findAll(sort);
 	}
 
 	public ListAnime findById(String id) {

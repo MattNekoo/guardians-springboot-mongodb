@@ -51,8 +51,8 @@ public class Instantiation implements CommandLineRunner {
 		Filme f3 = new Filme(null, "Interestellar", "Filme do Tempo", 2015);
 		
 		Anime a1 = new Anime(null, "Gin no Saji", "TV", 2014, 11, 8.1, 9, 1);
-		Anime a2 = new Anime(null, "Ajin 1", "TV", 2014, 11, 8.1, 9, 1);
-		Anime a3 = new Anime(null, "Ajin 2", "TV", 2014, 11, 8.1, 9, 2);
+		Anime a2 = new Anime(null, "Ajin 1", "TV", 2014, 11, 8.1, 9, 2);
+		Anime a3 = new Anime(null, "Ajin 2", "TV", 2014, 11, 8.1, 9, 1);
 
 		userRepository.saveAll(Arrays.asList(maria, alex, lexie));
 		filmeRepository.saveAll(Arrays.asList(f1,f2,f3));
